@@ -1,0 +1,10 @@
+2026-05-12 14:29:11 | LOGIN/REG | kurty (Student) - ID: 34567
+2026-05-12 14:30:03 | BORROW | kurty borrowed Introduction to Algorithms (B006)
+2026-05-12 14:30:26 | LOGOUT | kurty logged out.
+2026-05-12 14:30:35 | ADMIN LOGIN | Administrator logged in.
+2026-05-12 22:35:58 | LOGIN/REG | yuiwjklmc (Student) - ID: 567890
+2026-05-12 22:36:03 | LOGOUT | yuiwjklmc logged out.
+2026-05-12 22:36:21 | ADMIN LOGIN | Administrator logged in.
+2026-05-12 22:36:50 | ADD BOOK | tdfuyagiHOJo (B011)
+2026-05-12 22:36:56 | LOGOUT | Administrator logged out.
+2026-05-12 22:37:30 | ADMIN LOGIN | Administrator logged in.

@@ -1,0 +1,11 @@
+B001|Harry Potter and the Sorcerer's Stone|J.K. Rowling|Fantasy|-|1||A young wizard discovers his magical destiny at Hogwarts.
+B002|Database Systems|Jose Ramirez|Technology|4th Edition|1||Advanced SQL and NoSQL concepts.
+B003|World History Essentials|Angela Cruz|History|1st Edition|0|Wenny|Overview of major historical events.
+B004|Clean Code|Robert C. Martin|Programming|-|1||Best practices for writing readable code.
+B005|Rich Dad Poor Dad|Robert Kiyosaki|Finance|-|1||Lessons about money and financial education.
+B006|Introduction to Algorithms|Thomas H. Cormen|Computer Science|-|0|kurty|Guide to algorithms and data structures.
+B007|Atomic Habits|James Clear|Personal Development|1st Edition|1||Explains how small daily habits can lead to significant life improvements over time.
+B008|Clean Architecture|Robert C. Martin|Technology|1st Edition|1||Teaches principles for designing flexible, scalable, and maintainable software systems.
+B009|Noli Me Tangere|Dr. Jose Rizal| History|-|1||A novel exposing the abuses during Spanish colonization, important for understanding Philippine history and nationalism.
+B010|El Filibusterismo|Dr. Jose Rizal|History|-|1||The sequel to Noli Me Tangere, focusing on revolution and reform against colonial rule.
+

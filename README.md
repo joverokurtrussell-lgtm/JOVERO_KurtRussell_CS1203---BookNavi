@@ -1,2 +1,4 @@
-# JOVERO_KurtRussell_CS1203---BookNavi
-Final Project - CC103
+
+# BookNavi Library
+
+In today’s digital age, libraries continue to play an important role in supporting education and learning by providing access to valuable resources and information. However, managing and locating books through traditional catalog systems can sometimes be time-consuming and inefficient for both students and librarians. To address this challenge, BookNovi was developed as a smart digital library catalog system using C++ in a console-based application. The program is designed to improve the organization, accessibility, and management of library resources by offering a user-friendly platform for searching, locating, and maintaining book collections. Guided by its tagline, “Smart Libraries, Smarter Learning,” BookNovi aims to create a more efficient and convenient library experience for everyone.

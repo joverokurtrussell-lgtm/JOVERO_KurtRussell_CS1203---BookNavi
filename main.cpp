@@ -27,12 +27,14 @@ struct User {
     string schoolId;
 };
 
+// Convert string to lowercase for case-insensitive comparison
 string toLower(string text) {
     transform(text.begin(), text.end(), text.begin(),
               [](unsigned char c) { return static_cast<char>(tolower(c)); });
     return text;
 }
 
+// Prompt user and get full line input
 string getLineInput(const string& prompt) {
     string value;
     cout << prompt;
@@ -40,8 +42,9 @@ string getLineInput(const string& prompt) {
     return value;
 }
 
+// Get the current Philippine time as formatted string
 string currentTimestamp() {
-    // Get current UTC time
+    // Get current UTC
     time_t now = time(nullptr);
 
     // Add Philippine Time offset (UTC+8)
@@ -62,12 +65,17 @@ string currentTimestamp() {
 
 class LibrarySystem {
 private:
-    vector<Book> catalog;
+    // Stores all books in the library
+    vector<Book> catalog;  
+    // In-memory transaction log
     vector<string> transactions;
+    // Current logged in user
     User currentUser;
     bool hasUser = false;
 
+    // File for book data
     const string dataFile = "catalog_data.txt";
+    // File for transaction logs
     const string logFile = "library_logs.txt";
 
     vector<string> split(const string& line, char delimiter) {
@@ -80,6 +88,7 @@ private:
         return parts;
     }
 
+   // Replace problematic characters for safe file storage
     string makeSafeField(string value) {
         replace(value.begin(), value.end(), '|', '/');
         replace(value.begin(), value.end(), '\n', ' ');
@@ -91,7 +100,7 @@ public:
     LibrarySystem() {
         loadCatalog();
     }
-
+    // ======= Load book data from file or create default catalog =======
     void loadCatalog() {
         ifstream file(dataFile);
 
@@ -145,6 +154,7 @@ public:
         }
     }
 
+    // ======= Save current catalog to file =======
     void saveCatalog() {
         ofstream file(dataFile);
         for (const Book& book : catalog) {
@@ -159,6 +169,7 @@ public:
         }
     }
 
+    // ======= Record action in transaction log with timestamp =======
     void logAction(const string& message) {
         string entry = currentTimestamp() + " | " + message;
         transactions.push_back(entry);
@@ -167,6 +178,7 @@ public:
         file << entry << '\n';
     }
 
+    // ======= Display header with welcome message =======
     void showHeader() {
         cout << "\n=============================================\n";
         cout << "              BookNavi Library\n";
@@ -178,6 +190,7 @@ public:
         }
     }
 
+    // ======= Show library statistics (total books, available, borrowed) =======
     void showDashboard() {
         int total = static_cast<int>(catalog.size());
         int available = 0;
@@ -194,6 +207,7 @@ public:
         cout << "Borrowed    : " << total - available << '\n';
     }
 
+    // ======= Display main menu options =======
     void showMenu() {
         cout << "\nMenu\n";
         cout << "1. Register User\n";
@@ -209,6 +223,7 @@ public:
         cout << "11. Exit\n";
     }
 
+    // ======= Register new user (Student/Faculty) =======
     void registerUser() {
         string roleChoice;
         string name;
@@ -235,6 +250,7 @@ public:
         cout << "User registered successfully.\n";
     }
 
+    // ======= Authenticate admin with password =======
     void adminLogin() {
         string password = getLineInput("\nAdmin password: ");
         if (password == "admin123") {
@@ -247,6 +263,7 @@ public:
         }
     }
 
+    // ======= Logout current User =======
     void logoutUser() {
         if (!hasUser) {
             cout << "No active user to logout.\n";
@@ -259,6 +276,7 @@ public:
         cout << "Logged out successfully.\n";
     }
 
+    // Find book by ID (case-insensitive)
     Book* findBookById(const string& id) {
         string target = toLower(id);
         for (Book& book : catalog) {
@@ -269,6 +287,7 @@ public:
         return nullptr;
     }
 
+    // Generate next available book ID (B001, B002, etc.)
     string generateBookId() {
         int highest = 0;
         for (const Book& book : catalog) {
@@ -285,6 +304,7 @@ public:
         return id.str();
     }
 
+    // ======= Display books in a formatted table =======
     void printBooks(const vector<Book>& books) {
         if (books.empty()) {
             cout << "No books to display.\n";
@@ -312,11 +332,13 @@ public:
         }
     }
 
+    // ================= Show all books in catalog =================
     void viewAllBooks() {
         cout << "\nBook Catalog\n";
         printBooks(catalog);
     }
 
+    // ================= Search Book by title, author, or category =================
     void searchBook() {
         string title = toLower(getLineInput("\nTitle keyword (leave blank for any): "));
         string author = toLower(getLineInput("Author keyword (leave blank for any): "));
@@ -336,7 +358,8 @@ public:
         cout << "\nSearch Results: " << results.size() << " book(s) found.\n";
         printBooks(results);
     }
-    
+
+    // ================= Show book description by ID =================   
     void showDescription() {
         string id = getLineInput("\nBook ID to view description: ");
         Book* book = findBookById(id);
@@ -352,6 +375,7 @@ public:
              << '\n';
     }
 
+    // ================= Add new book (Admin only) =================
     void addBook() {
         if (!hasUser || currentUser.role != "Admin") {
             cout << "Access denied. Only administrators can add books.\n";
@@ -379,6 +403,7 @@ public:
         cout << "Book added successfully with ID " << book.id << ".\n";
     }
 
+    // ================= Borrow a book (requires login) =================
     void borrowBook() {
         if (!hasUser) {
             cout << "Please register or login first.\n";
@@ -401,6 +426,7 @@ public:
         }
     }
 
+    // ================= Return a borrowed book =================
     void returnBook() {
         if (!hasUser) {
             cout << "Please register or login first.\n";
@@ -424,6 +450,7 @@ public:
         }
     }
 
+    // ================= Delete a book (Admin only) =================
     void deleteBook() {
         if (!hasUser || currentUser.role != "Admin") {
             cout << "Access denied. Only administrators can delete books.\n";
@@ -454,7 +481,7 @@ public:
         cout << "Book deleted successfully.\n";
     }
 
-
+    // ================= Show Transactions history (Admin only) =================
     void showTransactions() {
         if (!hasUser || currentUser.role != "Admin") {
             cout << "Access denied. Only administrators can view transaction history.\n";
@@ -478,6 +505,7 @@ public:
     }
 };
 
+// ================= MAIN =================
 int main() {
     LibrarySystem app;
 
